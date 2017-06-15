@@ -35,6 +35,7 @@ class Clamscan(ProcessingModule):
 
     _clam = None
     _tag = 'malware'
+    _MALWARE_KEYWORD = 'Malware Signature'
 
     def initialize(self):
         if not HAVE_CLAMD:
@@ -43,9 +44,7 @@ class Clamscan(ProcessingModule):
 
     def each(self, target):
         self.results = {
-            'analysis': {
-                'Malware Signature:': []
-            }
+                self._MALWARE_KEYWORD: []
         }
 
 
@@ -73,6 +72,6 @@ class Clamscan(ProcessingModule):
 
         status,name = res['stream']
         self.add_tag(self._tag)
-        self.results['analysis']['Malware Signature'] = [name]
+        self.results[self._MALWARE_KEYWORD] = name
 
         return True
