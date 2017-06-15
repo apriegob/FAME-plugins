@@ -43,10 +43,7 @@ class Clamscan(ProcessingModule):
 
 
     def each(self, target):
-        self.results = {
-                self._MALWARE_KEYWORD: []
-        }
-
+        self.results = []
 
         if self._clam is None:
             if len(self.filename) > 0:
@@ -72,6 +69,6 @@ class Clamscan(ProcessingModule):
 
         status,name = res['stream']
         self.add_tag(self._tag)
-        self.results[self._MALWARE_KEYWORD] = name
+        self.results.append((self._MALWARE_KEYWORD,name))
 
         return True
