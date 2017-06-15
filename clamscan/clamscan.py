@@ -47,8 +47,8 @@ class Clamscan(ProcessingModule):
                 self._clam = pyclamd.ClamdUnixSocket(filename=self.filename)
             elif len(self.server) > 0 and len(self.port) > 0:
                 try:
-                    host = self.server.strip()
-                    port = int(self.port.strip())
+                    host = self.server
+                    port = int(self.port)
                     self._clam = pyclamd.ClamdNetworkSocket(host=host,port=port)
                 except:
                     return False
@@ -58,7 +58,9 @@ class Clamscan(ProcessingModule):
             if not self._clam.ping():
                 return False
 
-        res = self._clam.scan_file(target)
+        res = None
+	with open(target) as f:
+            res = self._clam.scan_stream(f.read())
         if not res:
             return True
 
