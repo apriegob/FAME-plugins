@@ -22,12 +22,14 @@ class Clamscan(ProcessingModule):
         {
             'name': 'server',
             'type': 'str',
-            'description': 'ClamAV server'
+            'description': 'ClamAV server',
+            'default': None
         },
         {
             'name': 'port',
             'type': 'str',
-            'description': 'ClamAV port'
+            'description': 'ClamAV port',
+            'default': None
         }
     ]
 
