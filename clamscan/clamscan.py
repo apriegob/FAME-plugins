@@ -44,7 +44,7 @@ class Clamscan(ProcessingModule):
     def each(self, target):
         self.results = {
             'analysis': {
-                'Malware Signature:': ''
+                'Malware Signature:': []
             }
         }
 
@@ -73,6 +73,6 @@ class Clamscan(ProcessingModule):
 
         status,name = res['stream']
         self.add_tag(self._tag)
-        self.results['analysis']['Malware Signature'] = name
+        self.results['analysis']['Malware Signature'] = [name]
 
         return True
