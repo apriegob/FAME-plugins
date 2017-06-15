@@ -16,7 +16,8 @@ class Clamscan(ProcessingModule):
         {
             'name': 'filename',
             'type': 'str',
-            'description': 'UNIX socket file path'
+            'description': 'UNIX socket file path',
+            'default': '/var/run/clamav/clamd.ctl'
         },
         {
             'name': 'server',
@@ -41,7 +42,7 @@ class Clamscan(ProcessingModule):
     def each(self, target):
         if self._clam is None:
             if len(self.filename) > 0:
-                self._clam = pyclamd.ClamdUnixSocket(filename="/var/run/clamav/clamd.ctl")
+                self._clam = pyclamd.ClamdUnixSocket(filename=self.filename)
             elif len(self.server) > 0 and len(self.port) > 0:
                 try:
                     host = self.server.strip()
