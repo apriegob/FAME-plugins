@@ -1,0 +1,18 @@
+{% if results.analysis %}
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">ClamAV</h4>
+            <p class="category">Scan Result</p>
+        </div>
+        <div class="content">
+                {% for keyword, description in results %}
+                    <div class="close-alert alert alert-danger">
+                        {{keyword}}: {{description}}
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
