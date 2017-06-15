@@ -42,6 +42,13 @@ class Clamscan(ProcessingModule):
 
 
     def each(self, target):
+        self.results = {
+            'analysis': {
+                'Malware Signature:': ''
+            }
+        }
+
+
         if self._clam is None:
             if len(self.filename) > 0:
                 self._clam = pyclamd.ClamdUnixSocket(filename=self.filename)
@@ -62,10 +69,10 @@ class Clamscan(ProcessingModule):
 	with open(target) as f:
             res = self._clam.scan_stream(f.read())
         if not res:
-            return True
+            return False
 
         status,name = res['stream']
         self.add_tag(self._tag)
-        self.results = {'signature': [name]}
+        self.results['analysis']['Malware Signature'] = name
 
         return True
