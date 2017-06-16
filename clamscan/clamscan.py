@@ -72,5 +72,6 @@ class Clamscan(ProcessingModule):
         status,name = res['stream']
         self.add_tag(self._tag)
         self.results['analysis'].append((self._MALWARE_KEYWORD,name))
+        self.add_probable_name(name)
 
         return True
