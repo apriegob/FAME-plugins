@@ -1,0 +1,4 @@
+To add more patterns to the plugin:
+
+- Edit lib/patterns to add your new patterns to the global var 'patterns'
+- Edit details.html to handle your new patterns key names
