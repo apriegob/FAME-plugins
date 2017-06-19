@@ -30,7 +30,7 @@ class Strpat(ProcessingModule):
 
             chunk = '\n'.join(buf)
             strings += chunk
-            res = config.eval_patterns(chunk)
+            res = patterns.eval_patterns(chunk)
             if res:
                 for i in res:
                     self.results['patterns'].append(i)
