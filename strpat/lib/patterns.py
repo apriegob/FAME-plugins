@@ -2,7 +2,7 @@ import re
 
 patterns = {
     "btc": re.compile(r'^[a-zA-Z0-9]{34}$'),
-    "domain": re.compile(r'^.*[a-zA-Z0-9][-a-zA-Z0-9]+[a-zA-Z0-9].[a-z]{2,3}(.[a-z]{2,3})?(.[a-z]{2,3})?$'),
+    "domain": re.compile(r'^.*[a-zA-Z0-9][-a-zA-Z0-9]+[a-zA-Z0-9](\.[a-z]{2,3}){1.3}$'),
     "ipaddress": re.compile(r'^[1-9]+[0-9]{1,2}(\.[0-9]{1,3}){3}$')
 }
 

@@ -15,7 +15,6 @@ class Strpat(ProcessingModule):
                 if c in string.printable:
                     result += c
                     continue
-                result = result.strip()
                 if len(result) >= min:
                     yield result
                 result = ""
