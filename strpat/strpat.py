@@ -15,6 +15,7 @@ class Strpat(ProcessingModule):
                 if c in string.printable:
                     result += c
                     continue
+                result = result.strip()
                 if len(result) >= min:
                     yield result
                 result = ""
@@ -24,7 +25,7 @@ class Strpat(ProcessingModule):
     def each(self, target):
         self.results = {
             'strings': '',
-            'patterns': []
+            'patterns': {}
         }
 
         for chunk in self.strings(target):
@@ -32,7 +33,10 @@ class Strpat(ProcessingModule):
             res = patterns.eval_patterns(chunk)
             if res:
                 for i in res:
-                    self.results['patterns'].append(i)
+                    name,value = i
+                    if not name in list(self.results['patterns'].keys()):
+                        self.results['patterns'][name] = []
+                    self.results['patterns'][name].append(value)
 
         return True
 
