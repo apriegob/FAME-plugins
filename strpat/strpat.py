@@ -3,7 +3,7 @@ from fame.common.exceptions import ModuleInitializationError
 from lib import patterns
 
 class Strpat(ProcessingModule):
-    name = "Strings & Patterns"
+    name = "strings"
     description = "Dump strings and search patterns"
 
     def each(self, target):
