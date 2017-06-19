@@ -11,6 +11,7 @@ class Strpat(ProcessingModule):
             'strings': []
         }
 
+        strings = ''
         mix = False
         beg = None
         with open(target,'rb') as f:
