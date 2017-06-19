@@ -16,7 +16,7 @@ def eval_patterns(string):
         if not res:
             continue
 
-        ret.append((name,('\n'.join(res.groups()))))
+        ret.append((name,('\n'.join(res.group()))))
 
     if not len(ret):
         ret = None
