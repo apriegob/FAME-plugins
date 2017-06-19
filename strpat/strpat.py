@@ -23,11 +23,11 @@ class Strpat(ProcessingModule):
                     beg = buf[-1:]
                     buf = buf[:-1]
                 else:
-                    buf = beg + buf
+                    buf.insert(0,beg)
                     beg = None
                     mix = False
 
-            chunk = '\n'.join(buf.strip().split(' '))
+            chunk = '\n'.join(buf)
             strings += chunk
             res = config.eval_patterns(chunk)
             if res:
