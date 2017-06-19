@@ -1,3 +1,4 @@
+import string
 from fame.core.module import ProcessingModule
 from fame.common.exceptions import ModuleInitializationError
 from lib import patterns
@@ -6,37 +7,32 @@ class Strpat(ProcessingModule):
     name = "strings"
     description = "Dump strings and search patterns"
 
+    # from: https://stackoverflow.com/a/17197027
+    def strings(self,filename, min=4):
+        with open(filename, "rb") as f:
+            result = ""
+            for c in f.read():
+                if c in string.printable:
+                    result += c
+                    continue
+                if len(result) >= min:
+                    yield result
+                result = ""
+            if len(result) >= min:  # catch result at EOF
+                yield result
+
     def each(self, target):
         self.results = {
-            'strings': []
+            'strings': '',
+            'patterns': []
         }
 
-        strings = ''
-        mix = False
-        beg = None
-        with open(target,'rb') as f:
-            buf = f.read(1024).decode('utf-8',errors='replace').replace('  ',' ')
-            if buf[-1:] == ' ':
-                mix = True
-            buf = buf.strip().split(' ')
-            if mix:
-                if not beg:
-                    beg = buf[-1:]
-                    buf = buf[:-1]
-                else:
-                    buf.insert(0,beg)
-                    beg = None
-                    mix = False
-
-            chunk = '\n'.join(buf)
-            strings += chunk
+        for chunk in self.strings(target):
+            self.results['strings'] += chunk + '\n'
             res = patterns.eval_patterns(chunk)
             if res:
                 for i in res:
                     self.results['patterns'].append(i)
-
-        if not len(strings):
-            return False
 
         self.results['strings'] = strings
         return True
