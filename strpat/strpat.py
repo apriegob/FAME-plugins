@@ -34,6 +34,5 @@ class Strpat(ProcessingModule):
                 for i in res:
                     self.results['patterns'].append(i)
 
-        self.results['strings'] = strings
         return True
 
