@@ -28,17 +28,29 @@
                {% endif %}
                {% if results.patterns.ipaddress %}
                    <div id="ipaddresses" class="tab-pane fade in active">
-                       <pre>{% for ip in results.patterns.ipaddress %}{{ ip|linebreaks }}{% endfor %}</pre>
+                       <ul>
+                             {% for ip in results.patterns.ipaddress %}
+                             <li><a href="https://www.robtex.com/ip-lookup/{{ip}}" target="_blank">{{ip}}</a></li>
+                             {% endfor %}
+                       </ul>
                    </div>
                {% endif %}
                {% if results.patterns.domain %}
                    <div id="domains" class="tab-pane fade in active">
-                       <pre>{% for dom in results.patterns.domain %}{{dom|linebreaks}}{% endfor %}</pre>
+                       <ul>
+                            {% for dom in results.patterns.domain %}
+                            <li><a href="https://www.robtex.com/dns-lookup/{{dom}}" target="_blank">{{dom}}</a></li>
+                            {% endfor %}
+                       </ul>
                    </div>
                {% endif %}
                {% if results.patterns.btc %}
                    <div id="btcwallets" class="tab-pane fade in active">
-                       <pre>{% for btc in results.patterns.btc %}{{btc|linebreaks}}{% endfor %}</pre>
+                       <ul>
+                           {% for btc in results.patterns.btc %}
+                               <li><a href="https://blockchain.info/address/{{btc}}" target="_blank">{{btc}}</a></li>
+                           {% endfor %}
+                       </ul>
                    </div>
                {% endif %}
             </div>
