@@ -28,17 +28,17 @@
                {% endif %}
                {% if results.patterns.ipaddress %}
                    <div id="ipaddresses" class="tab-pane fade in active">
-                       <pre>{% for ip in results.patterns.ipaddress %}{{ ip }}{% endfor %}</pre>
+                       <pre>{% for ip in results.patterns.ipaddress %}{{ ip|linebreaks }}{% endfor %}</pre>
                    </div>
                {% endif %}
                {% if results.patterns.domain %}
                    <div id="domains" class="tab-pane fade in active">
-                       <pre>{% for dom in results.patterns.domain %}{{dom}}{% endfor %}</pre>
+                       <pre>{% for dom in results.patterns.domain %}{{dom|linebreaks}}{% endfor %}</pre>
                    </div>
                {% endif %}
                {% if results.patterns.btc %}
                    <div id="btcwallets" class="tab-pane fade in active">
-                       <pre>{% for btc in results.patterns.btc %}{{btc}}{% endfor %}</pre>
+                       <pre>{% for btc in results.patterns.btc %}{{btc|linebreaks}}{% endfor %}</pre>
                    </div>
                {% endif %}
             </div>
