@@ -22,12 +22,12 @@
 
             <div class="tab-content">
                {% if results.strings %}
-                   <div id="strings" class="tab-pane fade in active">
+                   <div id="strings" class="tab-pane fade active in">
                        <pre class="pre-xy-scrollable">{{ results.strings }}</pre>
                    </div>
                {% endif %}
                {% if results.patterns.ipaddress %}
-                   <div id="ipaddresses" class="tab-pane fade in active">
+                   <div id="ipaddresses" class="tab-pane fade">
                        <br>
                        <ul>
                              {% for ip in results.patterns.ipaddress %}
@@ -37,7 +37,7 @@
                    </div>
                {% endif %}
                {% if results.patterns.domain %}
-                   <div id="domains" class="tab-pane fade in active">
+                   <div id="domains" class="tab-pane fade">
                        <br>
                        <ul>
                             {% for dom in results.patterns.domain %}
@@ -47,7 +47,7 @@
                    </div>
                {% endif %}
                {% if results.patterns.btc %}
-                   <div id="btcwallets" class="tab-pane fade in active">
+                   <div id="btcwallets" class="tab-pane fade">
                        <br>
                        <ul>
                            {% for btc in results.patterns.btc %}
