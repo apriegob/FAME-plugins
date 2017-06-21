@@ -6,7 +6,7 @@
         </div>
         <div class="content">
 		<br>
-                <div><a href="{{results.virustotal.link}}">Detected by {{results.virustotal.positives}} AV engines ({{results.virustotal.date}}).</a></div>
+                <div><a href="{{results.link}}">Detected by {{results.positives}} AV engines ({{results.date}}).</a></div>
 		<table class="table table-stripped"> 
 			<tr>
 				<th>Date</th>
@@ -16,7 +16,7 @@
 				<th>SHA256</th>
 				<th>Extracted</th>
 			</tr>
-			{% for engine,result in results.virustotal.iteritems() %}
+			{% for engine,result in results.iteritems() %}
 				{% if result.detected %}
 					<tr class="close-alert alert alert-danger">
                                 {% endif %}
