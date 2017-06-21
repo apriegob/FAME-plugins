@@ -39,6 +39,7 @@ class Resdump(ProcessingModule):
             self.log("info","No resources found")
             return False
 
+        count = 1
         for resource_type in pe.DIRECTORY_ENTRY_RESOURCE.entries:
             if resource_type.name is not None:
                 name = "%s" % resource_type.name
@@ -57,12 +58,15 @@ class Resdump(ProcessingModule):
                             except:
                                 filetype = None
                             self.log('info',"Resource type %s" % filetype)
+                            extracted = False
                             if filetype and filetype != 'data':
-                                fpath = "%s/res%s" % (tempdir(),reshash)
+                                fpath = "%s/res%d_%s" % (tempdir(),count,name)
                                 with open(fpath,'wb') as f:
                                     f.write(data)
+                                extracted = True
                                 self.add_extracted_file(fpath)
-                            self.results.append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': reshash})
+                            self.results.append({'name': name,'type': filetype, 'rva': "0x%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': extracted, 'sha256': reshash})
+            count += 1
 
         return len(self.results) > 0
 
