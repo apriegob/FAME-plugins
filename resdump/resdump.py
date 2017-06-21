@@ -64,5 +64,8 @@ class Resdump(ProcessingModule):
                                 self.add_extracted_file(fpath)
                             self.results['resources'].append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': reshash})
 
+	if not len(self.results['resources']):
+            return False
+
         return True
 
