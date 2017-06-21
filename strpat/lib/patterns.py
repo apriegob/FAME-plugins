@@ -11,7 +11,7 @@ def eval_patterns(string):
     ret = []
 
     for name in list(patterns.keys()):
-        res = patterns[name].search(string)
+        res = patterns[name].search(string.strip())
         if not res:
             continue
 
