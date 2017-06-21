@@ -1,16 +1,25 @@
-import pefile
 import hashlib
 from fame.core.module import ProcessingModule
 from fame.common.exceptions import ModuleInitializationError
 from fame.common.utils import tempdir
+
+try:
+    import pefile
+    HAVE_PEFILE = True
+except:
+    HAVE_PEFILE = False
 
 class Resdump(ProcessingModule):
     name = "resdump"
     description = "Extract files embebbed in PE resources"
     acts_on = ["executable"]
 
+    def initialize(self):
+        if not HAVE_PEFILE:
+            raise ModuleInitializationError(self, "Missing dependency: pefile")
+
     def each(self, target):
-        self.results = {}
+        self.results = {'resources': []}
         try:
             pe = pefile.PE(target)
         except:
@@ -45,6 +54,7 @@ class Resdump(ProcessingModule):
                                     f.write(data)
                                 self.add_extracted_file(fpath)
                                 self.log("info","Extracted resource type %s" % filetype)
+                                self.results['resources'].append({'name': name,'rva': resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size})
                                 ret = True
 
         return ret
