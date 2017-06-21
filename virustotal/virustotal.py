@@ -55,6 +55,9 @@ class Resdump(ProcessingModule):
         if not 'positives' in list(data.keys()) or not data['positives']:
             return False
 
+        for engine in data['scans']:
+            data['scans'][engine]['update_date'] = data['scans'][engine]['update']
+            del data['scans'][engine]['update']
         self.results = {'date':data['scan_date'],'positives': data['positives'],'scans':data['scans'],'link':'permalink'}
 
         return True
