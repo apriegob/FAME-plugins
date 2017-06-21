@@ -42,9 +42,9 @@ class Resdump(ProcessingModule):
                 buf = f.read(1024)
         fhash = alg.hexdigest()
 
-        params = {'resource': fhash, 'apikey': self.api}
+        params = {'resource': fhash, 'apikey': self.API}
         try:
-            data = requests.get(self.url,params=params).json()
+            data = requests.get(self.URL,params=params).json()
         except:
             return False
 
