@@ -14,9 +14,11 @@ class Resdump(ProcessingModule):
         try:
             pe = pefile.PE(target)
         except:
+            self.log("Not a PE")
             return False
 
         if not hasattr(pe, 'DIRECTORY_ENTRY_RESOURCE'):
+            self.log("No resources found")
             return False
 
         ret = False
