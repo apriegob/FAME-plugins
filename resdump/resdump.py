@@ -47,6 +47,7 @@ class Resdump(ProcessingModule):
                                 filetype = magic.from_buffer(data).decode('utf-8')
                             except:
                                 filetype = None
+                            self.log('info',"Resource type %s" % filetype)
                             if filetype and filetype != 'data':
                                 fname = hashlib.sha256(data).hexdigest()
                                 fpath = "%s/res%s" % (tempdir(),fname)
