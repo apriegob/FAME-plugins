@@ -1,0 +1,39 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">VirusTotal Check</h4>
+            <p class="category">Scan Results</p>
+        </div>
+        <div class="content">
+		<br>
+                <div><a href="{{file.virustotal.link}}">Detected by {{file.virustotal.positives}} AV engines ({{file.virustotal.date}}).</a></div>
+		<table class="table table-stripped"> 
+			<tr>
+				<th>Date</th>
+				<th></th>
+				<th>Size</th>
+				<th>Type</th>
+				<th>SHA256</th>
+				<th>Extracted</th>
+			</tr>
+			{% for engine,result in file.virustotal.iteritems() %}
+				{% if result.detected %}
+					<tr class="close-alert alert alert-danger">
+                                {% endif %}
+					<td>{{engine}}</td>
+					<td>{{result.version}}</td>
+					<td>{{result.update}}</td>
+					<td>
+                                        {% if result.detected %}
+						{{result.result}}
+					{% else %}
+						Clean
+                                        {% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+        </div>
+    </div>
+</div>
+
