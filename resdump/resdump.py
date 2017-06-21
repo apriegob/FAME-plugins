@@ -51,18 +51,18 @@ class Resdump(ProcessingModule):
                     if hasattr(resource_id, 'directory'):
                         for resource_lang in resource_id.directory.entries:
                             data = pe.get_data(resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
+                            reshash = hashlib.sha256(data).hexdigest()
                             try:
                                 filetype = magic.from_buffer(data).decode('utf-8')
                             except:
                                 filetype = None
                             self.log('info',"Resource type %s" % filetype)
                             if filetype and filetype != 'data':
-                                fname = hashlib.sha256(data).hexdigest()
-                                fpath = "%s/res%s" % (tempdir(),fname)
+                                fpath = "%s/res%s" % (tempdir(),reshash)
                                 with open(fpath,'wb') as f:
                                     f.write(data)
                                 self.add_extracted_file(fpath)
-                            self.results['resources'].append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': fname})
+                            self.results['resources'].append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': reshash})
 
         return True
 
