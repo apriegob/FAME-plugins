@@ -28,7 +28,7 @@ class Resdump(ProcessingModule):
 
 
     def each(self, target):
-        self.results = {'resources': []}
+        self.results = []
         try:
             pe = pefile.PE(target)
         except:
@@ -62,10 +62,7 @@ class Resdump(ProcessingModule):
                                 with open(fpath,'wb') as f:
                                     f.write(data)
                                 self.add_extracted_file(fpath)
-                            self.results['resources'].append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': reshash})
+                            self.results.append({'name': name,'rva': "%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': reshash})
 
-	if not len(self.results['resources']):
-            return False
-
-        return True
+        return len(self.results) > 0
 
