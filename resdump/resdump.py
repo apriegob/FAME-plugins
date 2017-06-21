@@ -14,11 +14,11 @@ class Resdump(ProcessingModule):
         try:
             pe = pefile.PE(target)
         except:
-            self.log("Not a PE")
+            self.log("info","Not a PE")
             return False
 
         if not hasattr(pe, 'DIRECTORY_ENTRY_RESOURCE'):
-            self.log("No resources found")
+            self.log("info","No resources found")
             return False
 
         ret = False
@@ -44,6 +44,7 @@ class Resdump(ProcessingModule):
                                 with open(fpath,'wb') as f:
                                     f.write(data)
                                 self.add_extracted_file(fpath)
+                                self.log("info","Extracted resource type %s" % filetype)
                                 ret = True
 
         return ret
