@@ -1,0 +1,32 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">PE Resources</h4>
+            <p class="category">Identified or extracted resources</p>
+        </div>
+        <div class="content">
+		<br>
+		<table class="table table-stripped"> 
+			<tr>
+				<th>Name</th>
+				<th>RVA</th>
+				<th>Size</th>
+				<th>Type</th>
+				<th>SHA256</th>
+				<th>Extracted</th>
+			</tr>
+			{% for res in file.pe.resources %}
+				<tr>
+					<td>{{res.name}}</td>
+					<td>{{res.rva}}</td>
+					<td>{{res.size}}</td>
+					<td>{{res.type}}</td>
+					<td>{{res.sha256}}</td>
+					<td>{{res.extracted}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+        </div>
+    </div>
+</div>
+

@@ -17,7 +17,7 @@ except:
 
 class Resdump(ProcessingModule):
     name = "resdump"
-    description = "Extract files embebbed in PE resources"
+    description = "Identify and extract files embebbed in PE resources"
     acts_on = ["executable"]
 
     def initialize(self):
@@ -39,7 +39,6 @@ class Resdump(ProcessingModule):
             self.log("info","No resources found")
             return False
 
-        ret = False
         for resource_type in pe.DIRECTORY_ENTRY_RESOURCE.entries:
             if resource_type.name is not None:
                 name = "%s" % resource_type.name
@@ -63,9 +62,7 @@ class Resdump(ProcessingModule):
                                 with open(fpath,'wb') as f:
                                     f.write(data)
                                 self.add_extracted_file(fpath)
-                                self.log("info","Extracted resource type %s" % filetype)
-                                self.results['resources'].append({'name': name,'rva': resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size})
-                                ret = True
+                            self.results['resources'].append({'name': name,'rva': resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size,'extracted': not (filetype is None), 'sha256': fname})
 
-        return ret
+        return True
 
