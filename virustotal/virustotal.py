@@ -34,6 +34,7 @@ class Resdump(ProcessingModule):
 
 
     def each(self, target):
+        self.results = {}
         alg = hashlib.sha256()
         with open(target,'rb') as f:
             buf = f.read(1024)
