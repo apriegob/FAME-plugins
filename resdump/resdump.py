@@ -9,6 +9,12 @@ try:
 except:
     HAVE_PEFILE = False
 
+try:
+    import magic
+    HAVE_MAGIC = True
+except:
+    HAVE_MAGIC = False
+
 class Resdump(ProcessingModule):
     name = "resdump"
     description = "Extract files embebbed in PE resources"
@@ -17,6 +23,9 @@ class Resdump(ProcessingModule):
     def initialize(self):
         if not HAVE_PEFILE:
             raise ModuleInitializationError(self, "Missing dependency: pefile")
+        if not HAVE_MAGIC:
+            raise ModuleInitializationError(self, "Missing dependency: pymagic")
+
 
     def each(self, target):
         self.results = {'resources': []}
