@@ -55,6 +55,6 @@ class Resdump(ProcessingModule):
         if not 'positives' in list(data.keys()) or not data['positives']:
             return False
 
-        self.results = {'positives': data['positives'],'link':'permalink'}
+        self.results = {'positives': data['positives'],'link':data['permalink']}
 
         return True
