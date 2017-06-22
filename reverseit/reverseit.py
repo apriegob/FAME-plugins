@@ -50,8 +50,10 @@ class ReverseIT(ProcessingModule):
 
         headers = requests.utils.default_headers()
         headers.update({'User-Agent': 'VxStream'})
+        if self.URL[:-1] != '/':
+            self.URL = self.URL + '/'
         try:
-            data = requests.get("%s/%s" % (self.URL,fhash),auth=(self.Secret, self.Secret),headers=headers).json()
+            data = requests.get("%s%s" % (self.URL,fhash),auth=(self.Secret, self.Secret),headers=headers).json()
         except:
             return False
 
