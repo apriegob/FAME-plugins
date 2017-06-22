@@ -55,6 +55,8 @@ class ReverseIT(ProcessingModule):
         except:
             return False
 
+        print(data)
+
         if data['response_code'] != 0 or data['response']['threatscore'] == 0:
             return False
 
