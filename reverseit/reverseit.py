@@ -53,15 +53,15 @@ class ReverseIT(ProcessingModule):
         if self.URL[:-1] != '/':
             self.URL = self.URL + '/'
         try:
-            data = requests.get("%s%s" % (self.URL,fhash),auth=(self.Secret, self.Secret),headers=headers).json()
+            data = requests.get("%s%s" % (self.URL,fhash),auth=(self.API, self.Secret),headers=headers).json()
         except:
             return False
 
         print(data)
 
-        if data['response_code'] != 0 or data['response']['threatscore'] == 0:
+        if data['response_code'] != 0 or data['response'][0]['threatscore'] == 0:
             return False
 
-        self.results = {'threatscore': data['response']['threatscore'],'date': data['response']['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response']['environmentId'])}
+        self.results = {'threatscore': data['response'][0]['threatscore'],'date': data['response'][0]['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response'][0]['environmentId'])}
 
         return True
