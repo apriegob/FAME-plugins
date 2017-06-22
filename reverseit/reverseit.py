@@ -28,7 +28,7 @@ class ReverseIT(ProcessingModule):
             'name': 'URL',
             'type': 'str',
             'description': 'API URL',
-            'default': 'https://www.hybrid-analysis.com/api/scan/hash'
+            'default': 'https://www.hybrid-analysis.com/api/scan/'
         }
     ]
 
@@ -48,9 +48,8 @@ class ReverseIT(ProcessingModule):
                 buf = f.read(1024)
         fhash = alg.hexdigest()
 
-        params = {'resource': fhash, 'apikey': self.API}
         try:
-            data = requests.get(self.URL,params=params,auth=requests.auth.HTTPBasicAuth(self.Secret, self.Secret)).json()
+            data = requests.get("%s/%s" % (self.URL,fhash),params=params,auth=requests.auth.HTTPBasicAuth(self.Secret, self.Secret)).json()
         except:
             return False
 
