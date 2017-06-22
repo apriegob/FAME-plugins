@@ -9,9 +9,9 @@ try:
 except:
     HAVE_REQUESTS = False
 
-class VirusTotal(ProcessingModule):
-    name = "virustotal_check"
-    description = "Check file hash with virustotal"
+class ReverseIT(ProcessingModule):
+    name = "reverseit_check"
+    description = "Check file hash with Payload Security"
 
     config = [
         {
@@ -20,10 +20,15 @@ class VirusTotal(ProcessingModule):
             'description': 'API Key'
         },
         {
+            'name': 'Secret',
+            'type': 'str',
+            'description': 'API Secret'
+        },
+        {
             'name': 'URL',
             'type': 'str',
             'description': 'API URL',
-            'default': 'https://www.virustotal.com/vtapi/v2/file/report'
+            'default': 'https://www.hybrid-analysis.com/api/scan/hash'
         }
     ]
 
@@ -45,16 +50,13 @@ class VirusTotal(ProcessingModule):
 
         params = {'resource': fhash, 'apikey': self.API}
         try:
-            data = requests.get(self.URL,params=params).json()
+            data = requests.get(self.URL,params=params,auth=requests.auth.HTTPBasicAuth(self.Secret, self.Secret)).json()
         except:
             return False
 
-        if data['response_code'] == 0:
+        if data['response_code'] != 0 or data['response']['threatscore'] == 0:
             return False
 
-        if not 'positives' in list(data.keys()) or not data['positives']:
-            return False
-
-        self.results = {'positives': data['positives'],'link':data['permalink']}
+        self.results = {'threatscore': data['response']['threatscore'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response']['environmentId'])}
 
         return True
