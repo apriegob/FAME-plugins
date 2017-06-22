@@ -28,7 +28,7 @@ class ReverseIT(ProcessingModule):
             'name': 'URL',
             'type': 'str',
             'description': 'API URL',
-            'default': 'https://www.hybrid-analysis.com/api/scan/'
+            'default': 'https://www.hybrid-analysis.com/api/scan'
         }
     ]
 
@@ -50,18 +50,21 @@ class ReverseIT(ProcessingModule):
 
         headers = requests.utils.default_headers()
         headers.update({'User-Agent': 'VxStream'})
-        if self.URL[:-1] != '/':
-            self.URL = self.URL + '/'
         try:
             data = requests.get("%s%s" % (self.URL,fhash),auth=(self.API, self.Secret),headers=headers).json()
         except:
             return False
 
-        print(data)
-
-        if data['response_code'] != 0 or data['response'][0]['threatscore'] == 0:
+        if data['response_code'] != 0:
             return False
 
-        self.results = {'threatscore': data['response'][0]['threatscore'],'date': data['response'][0]['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response'][0]['environmentId'])}
+	res = data['response'][0]
+	if res['threatscore'] == 0:
+            return False
+
+        for tag in res['classification_tags']:
+            self.add_tag(tag)
+
+        self.results = {'threatscore': res['threatscore'],'date': res['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,res['environmentId'])}
 
         return True
