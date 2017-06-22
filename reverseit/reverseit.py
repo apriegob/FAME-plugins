@@ -58,6 +58,6 @@ class ReverseIT(ProcessingModule):
         if data['response_code'] != 0 or data['response']['threatscore'] == 0:
             return False
 
-        self.results = {'threatscore': data['response']['threatscore'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response']['environmentId'])}
+        self.results = {'threatscore': data['response']['threatscore'],'date': data['response']['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,data['response']['environmentId'])}
 
         return True

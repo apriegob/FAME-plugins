@@ -1,11 +1,11 @@
 <div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title">VirusTotal Check</h4>
+            <h4 class="title">Payload Security Check</h4>
             <p class="category">Scan Results</p>
         </div>
         <div class="content">
-                <div><a href="{{results.link}}">Detected by {{results.positives}} AV engines</a></div>
+                <div><a href="{{results.link}}">{{results.threatscore}}% Threat score</a></div>
         </div>
     </div>
 </div>
