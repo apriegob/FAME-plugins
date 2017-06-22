@@ -48,8 +48,10 @@ class ReverseIT(ProcessingModule):
                 buf = f.read(1024)
         fhash = alg.hexdigest()
 
+        headers = requests.utils.default_headers()
+        headers.update({'User-Agent': 'VxStream'})
         try:
-            data = requests.get("%s/%s" % (self.URL,fhash),params=params,auth=requests.auth.HTTPBasicAuth(self.Secret, self.Secret)).json()
+            data = requests.get("%s/%s" % (self.URL,fhash),auth=(self.Secret, self.Secret),headers=headers).json()
         except:
             return False
 
