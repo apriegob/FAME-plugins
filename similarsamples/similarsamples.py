@@ -1,3 +1,4 @@
+import hashlib
 from fame.core.store import store
 from fame.core.module import ProcessingModule
 from fame.common.exceptions import ModuleInitializationError
