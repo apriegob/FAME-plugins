@@ -1,0 +1,36 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Related samples</h4>
+            <p class="category">Similar objects seen before</p>
+        </div>
+        <div class="content">
+
+	{% if results %}
+		<div id="relatedsamples" class="tab-pane fade">
+			<table class="table table-stripped">
+				<tr>
+					<th>Ratio (%)</th>
+					<th>Algorithm</th>
+					<th>Name(s)</th>
+					<th>SHA256</th>
+				</tr>
+				{% for related in results %}
+					<tr>
+						<td>{{related.ratio}}</td>
+						<td>{{related.algorithm}}</td>
+						<td>
+							{% for name in related.names %}
+								{{name}}<br>
+							{% endfor %}
+						</td>
+						<td><a href="{{ url_for('AnalysesView:get', id=related.analysis_id) }}" target="_blank">{{related.sha256}}</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+        </div>
+    </div>
+</div>
+
