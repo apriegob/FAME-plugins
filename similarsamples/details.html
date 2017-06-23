@@ -20,12 +20,12 @@
 					<td>{{related.ratio}}</td>
 					<td>{{related.algorithm}}</td>
 					<td>
-						{% for name in related.probable_names %}
+						{% for name in related.names %}
 							{{name}}<br>
 						{% endfor %}
 					</td>
 					<td>
-						{% for name in related.names %}
+						{% for name in related.probable_names %}
 							{{name}}<br>
 						{% endfor %}
 					</td>
