@@ -41,7 +41,7 @@ class SimilarSamples(ProcessingModule):
 
         related = []
         compfunc = {'ssdeep': ssdeep.compare, 'impfuzzy': pyimpfuzzy.hash_compare, 'imphash': self._compare_strings}
-        samples = store.files.find({},{'_id':1,'sha256':1,'imphash':1,'impfuzzy':1,'ssdeep':1,'names':1})
+        samples = store.files.find({},{'_id':1,'sha256':1,'imphash':1,'impfuzzy':1,'ssdeep':1,'names':1,'probable_names':1})
         for sample in samples:
             print(sample)
             if sample['sha256'] == target['sha256']:
@@ -56,7 +56,7 @@ class SimilarSamples(ProcessingModule):
                         match = alg
             if ratio > 0:
                 analysis = store.analysis.find_one({'file': sample['_id']},{'_id':1})
-                related.append({'ratio': ratio, 'sha256': sample['sha256'],'algorithm': alg, 'analysis_id':analysis['_id'],'names': sample['names']})
+                related.append({'ratio': ratio, 'sha256': sample['sha256'],'algorithm': alg, 'analysis_id':analysis['_id'],'names': sample['names'],'probable_names':sample['probable_names']})
 
         if not len(related) > 0:
             related = None

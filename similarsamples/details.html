@@ -12,12 +12,18 @@
 				<th>Ratio (%)</th>
 				<th>Algorithm</th>
 				<th>Name(s)</th>
+				<th>Known names</th>
 				<th>SHA256</th>
 			</tr>
 			{% for related in results %}
 				<tr>
 					<td>{{related.ratio}}</td>
 					<td>{{related.algorithm}}</td>
+					<td>
+						{% for name in related.probable_names %}
+							{{name}}<br>
+						{% endfor %}
+					</td>
 					<td>
 						{% for name in related.names %}
 							{{name}}<br>
