@@ -76,7 +76,9 @@ class SimilarSamples(ProcessingModule):
 
         related = self._discover_similar_samples(store.files.find_one({'sha256': fhash}))
         if not related:
+            self.log('debug','no related samples')
             return False
 
         self.results = related
+        self.log('debug','%d related samples' % len(related))
         return True
