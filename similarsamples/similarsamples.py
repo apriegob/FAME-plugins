@@ -16,7 +16,7 @@ except:
     HAVE_PYIMPFUZZY = False
 
 
-class SimilarSamplesProcessingModule):
+class SimilarSamples(ProcessingModule):
     name = "similarsamples"
     description = "Look for similar/related samples"
 
