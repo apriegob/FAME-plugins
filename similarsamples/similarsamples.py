@@ -43,7 +43,6 @@ class SimilarSamples(ProcessingModule):
         compfunc = {'ssdeep': ssdeep.compare, 'impfuzzy': pyimpfuzzy.hash_compare, 'imphash': self._compare_strings}
         samples = store.files.find({},{'_id':1,'sha256':1,'imphash':1,'impfuzzy':1,'ssdeep':1,'names':1,'probable_names':1})
         for sample in samples:
-            print(sample)
             if sample['sha256'] == target['sha256']:
                 continue
             ratio = 0

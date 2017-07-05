@@ -1,5 +1,5 @@
 import hashlib
-from fame.core.module import ProcessingModule
+from fame.core.module import AntivirusModule
 from fame.common.exceptions import ModuleInitializationError
 from fame.common.utils import tempdir
 
@@ -9,7 +9,7 @@ try:
 except:
     HAVE_REQUESTS = False
 
-class ReverseIT(ProcessingModule):
+class ReverseIT(AntivirusModule):
     name = "reverseit_check"
     description = "Check file hash with Payload Security"
 
@@ -38,7 +38,7 @@ class ReverseIT(ProcessingModule):
             raise ModuleInitializationError(self, "Missing dependency: requests")
 
 
-    def each(self, target):
+    def submit(self, file):
         self.results = {}
         alg = hashlib.sha256()
         with open(target,'rb') as f:
@@ -53,18 +53,18 @@ class ReverseIT(ProcessingModule):
         try:
             data = requests.get("%s%s" % (self.URL,fhash),auth=(self.API, self.Secret),headers=headers).json()
         except:
-            return False
+            return
 
         if data['response_code'] != 0:
-            return False
+            return
 
 	res = data['response'][0]
 	if res['threatscore'] == 0:
-            return False
+            return
 
         for tag in res['classification_tags']:
             self.add_tag(tag)
 
         self.results = {'threatscore': res['threatscore'],'date': res['analysis_start_time'],'link': "https://www.hybrid-analysis.com/sample/%s?environmentId=%s" % (fhash,res['environmentId'])}
 
-        return True
+        return
