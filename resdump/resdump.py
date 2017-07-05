@@ -56,7 +56,7 @@ class Resdump(ProcessingModule):
                                 offset = 3
                             data = pe.get_data(offset + resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
                             reshash = hashlib.sha256(data).hexdigest()
-                            print(data[:128])
+                            print(data[:128].encode('hex'))
                             try:
                                 filetype = magic.from_buffer(data).decode('utf-8')
                             except:
