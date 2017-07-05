@@ -52,11 +52,10 @@ class Resdump(ProcessingModule):
                     if hasattr(resource_id, 'directory'):
                         for resource_lang in resource_id.directory.entries:
                             offset = 0
-                            if resource_lang.data.struct.Size > 3:
-                                offset = 3
+                            if resource_lang.data.struct.Size > 4:
+                                offset = 4
                             data = pe.get_data(offset + resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
                             reshash = hashlib.sha256(data).hexdigest()
-                            print(data[:128].encode('hex'))
                             try:
                                 filetype = magic.from_buffer(data).decode('utf-8')
                             except:
