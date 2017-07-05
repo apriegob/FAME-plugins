@@ -52,7 +52,8 @@ class Resdump(ProcessingModule):
                     if hasattr(resource_id, 'directory'):
                         for resource_lang in resource_id.directory.entries:
                             print(resource_lang)
-                            data = pe.get_data(resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
+                            #data = pe.get_data(resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
+                            data = pe.get_memory_mapped_image()[resource_lang.data.struct.OffsetToData:resource_lang.data.struct.OffsetToData+resource_lang.data.struct.Size]
                             reshash = hashlib.sha256(data).hexdigest()
                             try:
                                 filetype = magic.from_buffer(data).decode('utf-8')
