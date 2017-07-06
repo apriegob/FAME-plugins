@@ -24,6 +24,15 @@
 					<td>{{res.sha256}}</td>
 					<td>{{res.extracted}}</td>
 				</tr>
+                                {% if res.slipped %}
+					<tr>
+						<td>Embebbed/{{res.slipped.name}}</td>
+						<td>{{res.slipped.rva}}	</td>
+						<td>{{res.slipped.size}}</td>
+						<td>{{res.slipped.type}}</td>
+						<td>{{res.slipped.sha256}}</td>
+					</tr>
+                                {% endif %}
 			{% endfor %}
 		</table>
         </div>

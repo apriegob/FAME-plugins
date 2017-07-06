@@ -1,3 +1,4 @@
+import os
 import hashlib
 from fame.core.module import ProcessingModule
 from fame.common.exceptions import ModuleInitializationError
@@ -94,9 +95,9 @@ class Resdump(ProcessingModule):
                                     if auxtype != 'data':
                                         count += 1
                                         reshash = hashlib.sha256(data).hexdigest()
-                                        offset = pos
-                                        self.__extract(name,reshash,count,data[pos:])
-                                        resource['slipped'] = {'ofsset': "0x08X" % offset,'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'chunk': data[:pos].encode('hex'),'type': auxtype,'name': name}
+                                        respath = self.__extract(name,reshash,count,data[pos:])
+                                        resname = os.path.basename(respath)
+                                        resource['slipped'] = {'name': resname,'rva': "0x08X" % resource_lang.data.struct.OffsetToData + pos,'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'type': auxtype}
                                         break
                         self.results.append(resource)
                     count += 1
