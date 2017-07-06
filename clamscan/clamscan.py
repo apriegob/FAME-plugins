@@ -27,7 +27,7 @@ class Clamscan(ProcessingModule):
         },
         {
             'name': 'port',
-            'type': 'str',
+            'type': 'integer',
             'description': 'ClamAV port',
             'default': None
         }
@@ -50,11 +50,9 @@ class Clamscan(ProcessingModule):
         if self._clam is None:
             if len(self.filename) > 0:
                 self._clam = pyclamd.ClamdUnixSocket(filename=self.filename)
-            elif len(self.server) > 0 and len(self.port) > 0:
+            elif len(self.server) > 0 and self.port > 0:
                 try:
-                    host = self.server
-                    port = int(self.port)
-                    self._clam = pyclamd.ClamdNetworkSocket(host=host,port=port)
+                    self._clam = pyclamd.ClamdNetworkSocket(host=self.server,port=self.port)
                 except:
                     return False
             else:
