@@ -97,7 +97,7 @@ class Resdump(ProcessingModule):
                                         reshash = hashlib.sha256(data).hexdigest()
                                         respath = self.__extract(name,reshash,count,data[pos:])
                                         resname = os.path.basename(respath)
-                                        resource['slipped'] = {'name': resname,'rva': "0x08X" % resource_lang.data.struct.OffsetToData + pos,'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'type': auxtype}
+                                        resource['slipped'] = {'name': resname,'rva': "0x08X" % (resource_lang.data.struct.OffsetToData + pos),'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'type': auxtype}
                                         break
                         self.results.append(resource)
                     count += 1
