@@ -75,11 +75,13 @@ class Resdump(ProcessingModule):
                     for resource_lang in resource_id.directory.entries:
                         data = pe.get_data(resource_lang.data.struct.OffsetToData,resource_lang.data.struct.Size)
                         reshash = hashlib.sha256(data).hexdigest()
+                        lang = pefile.LANG.get(resource_lang.data.lang, 'qq_*unknown*')
+                        sublang = pefile.get_sublang_name_for_lang( resource_lang.data.lang, resource_lang.data.sublang )
                         try:
                             filetype = magic.from_buffer(data).decode('utf-8')
                         except:
                             filetype = None
-                        resource = {'name': name,'type': filetype, 'rva': "0x%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size, 'sha256': reshash}
+                        resource = {'name': name,'type': filetype, 'rva': "0x%08X" % resource_lang.data.struct.OffsetToData,'size': resource_lang.data.struct.Size, 'sha256': reshash,'lang': lang,'sublang':sublang}
                         extracted = False
                         if filetype is not None and filetype != 'data':
                             self.__extract(name,reshash,count,data)
@@ -94,10 +96,10 @@ class Resdump(ProcessingModule):
                                     auxtype = magic.from_buffer(data[pos:pos+self.MIME_SAMPLE_SIZE])
                                     if auxtype != 'data':
                                         count += 1
-                                        reshash = hashlib.sha256(data).hexdigest()
+                                        reshash = hashlib.sha256(data[pos:]).hexdigest()
                                         respath = self.__extract(name,reshash,count,data[pos:])
                                         resname = os.path.basename(respath)
-                                        resource['slipped'] = {'name': resname,'rva': "0x%08X" % (resource_lang.data.struct.OffsetToData + pos),'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'type': auxtype}
+                                        resource['slipped'] = {'name': resname,'rva': "0x%08X" % (resource_lang.data.struct.OffsetToData + pos),'size': resource_lang.data.struct.Size - pos,'sha256': reshash,'type': auxtype,'extracted': True}
                                         break
                         self.results.append(resource)
                     count += 1
