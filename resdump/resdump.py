@@ -39,7 +39,7 @@ class Resdump(ProcessingModule):
             raise ModuleInitializationError(self, "Missing dependency: pymagic")
 
 
-    def __extract(name,checksum,countid,data):
+    def __extract(self,name,checksum,countid,data):
         fpath = "%s/res%d_%s" % (tempdir(),countid,name)
         with open(fpath,'wb') as f:
             f.write(data)
