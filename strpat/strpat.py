@@ -35,7 +35,8 @@ class Strpat(ProcessingModule):
                     name,value = i
                     if not name in list(self.results['patterns'].keys()):
                         self.results['patterns'][name] = []
-                    self.results['patterns'][name].append(value)
+                    if not value in self.results['patterns'][name]:
+                        self.results['patterns'][name].append(value)
 
         return True
 
