@@ -28,7 +28,8 @@ class Resdump(ProcessingModule):
         {
             'name': 'MIME_SAMPLE_SIZE',
             'type': 'integer',
-            'description': 'Max file header size to look for magic patterns'
+            'description': 'Max file header size to look for magic patterns',
+            'default': 512
         }
     ]
 
