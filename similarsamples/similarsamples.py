@@ -71,6 +71,7 @@ class SimilarSamples(ProcessingModule):
     def each(self, target):
         self.results = {}
         alg = hashlib.sha256()
+        self.log('debug','File: {}'.format(target))
         with open(target,'rb') as f:
             buf = f.read()
             alg.update(buf)
