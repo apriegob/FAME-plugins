@@ -72,10 +72,8 @@ class SimilarSamples(ProcessingModule):
         self.results = {}
         alg = hashlib.sha256()
         with open(target,'rb') as f:
-            buf = f.read(1024)
-            while len(buf) > 0:
-                alg.update(buf)
-                buf = f.read(1024)
+            buf = f.read()
+            alg.update(buf)
         fhash = alg.hexdigest()
         
         self.log('debug','Hash {}'.format(fhash))
