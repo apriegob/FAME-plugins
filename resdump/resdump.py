@@ -16,8 +16,6 @@ try:
 except:
     HAVE_MAGIC = False
 
-# meter en config
-MIME_SAMPLE_SIZE = 1024
 
 class Resdump(ProcessingModule):
     name = "resdump"
@@ -44,7 +42,12 @@ class Resdump(ProcessingModule):
         fpath = "%s/res%d_%s" % (tempdir(),countid,name)
         with open(fpath,'wb') as f:
             f.write(data)
-        self.add_extracted_file(fpath)
+        for i in range(0,5):
+            try:
+                self.add_extracted_file(fpath)
+                break
+            except:
+                continue
         return fpath
 
 
