@@ -45,12 +45,14 @@ class SimilarSamples(ProcessingModule):
         for sample in samples:
             if sample['sha256'] == target['sha256']:
                 continue
+            self.log('debug','Verifying {}'.format(sample['filename']))
             ratio = 0
             match = None
             for alg in ['ssdeep','impfuzzy','imphash']:
                 if alg in list(target.keys()):
                     aux = compfunc[alg](sample[alg],target[alg])
                     if ratio < aux:
+                        self.log('debug','Result: {}'.format(aux))
                         ratio = aux
                         match = alg
             if ratio > 0:
