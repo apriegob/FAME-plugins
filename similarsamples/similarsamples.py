@@ -42,6 +42,7 @@ class SimilarSamples(ProcessingModule):
         related = []
         compfunc = {'ssdeep': ssdeep.compare, 'impfuzzy': pyimpfuzzy.hash_compare, 'imphash': self._compare_strings}
         samples = store.files.find({},{'_id':1,'sha256':1,'imphash':1,'impfuzzy':1,'ssdeep':1,'names':1,'probable_names':1})
+        self.log('debug','{} samples found'.format(len(samples)))
         for sample in samples:
             if sample['sha256'] == target['sha256']:
                 continue
@@ -76,7 +77,8 @@ class SimilarSamples(ProcessingModule):
                 alg.update(buf)
                 buf = f.read(1024)
         fhash = alg.hexdigest()
-
+        
+        self.log('debug','Hash {}'.format(fhash))
         related = self._discover_similar_samples(store.files.find_one({'sha256': fhash}))
         if not related:
             self.log('debug','no related samples')
