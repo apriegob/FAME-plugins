@@ -1,1 +1,1 @@
-https://github.com/erocarrera/pefile/archive/master.zip
+pefile
