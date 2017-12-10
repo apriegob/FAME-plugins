@@ -49,7 +49,7 @@ class SimilarSamples(ProcessingModule):
             match = None
             for alg in ['ssdeep','impfuzzy','imphash']:
                 if alg in list(target.keys()):
-                    aux = compfunc[alg](sample['ssdeep'],target['ssdeep'])
+                    aux = compfunc[alg](sample[alg],target[alg])
                     if ratio < aux:
                         ratio = aux
                         match = alg
