@@ -16,22 +16,22 @@
 				<th>SHA256</th>
 				<th>obj</th>
 			</tr>
-			{% for related in results %}
+			{% for sample in results %}
 				<tr>
-					<td>{{related.ratio}}</td>
-					<td>{{related.algorithm}}</td>
+					<td>{{sample.ratio}}</td>
+					<td>{{sample.algorithm}}</td>
 					<td>
-						{% for name in related.names %}
+						{% for name in sample.names %}
 							{{name}}<br>
 						{% endfor %}
 					</td>
 					<td>
-						{% for name in related.probable_names %}
+						{% for name in sample.probable_names %}
 							{{name}}<br>
 						{% endfor %}
 					</td>
 					<td><a href="{{ url_for('FilesView:get_sha256', sha256='aaaa') }}" target="_blank">ffff</a></td>					</tr>
-					<td><pre>{{related}}</pre></td>
+					<td><pre>{{sample}}</pre></td>
 			{% endfor %}
 		</table>
 	{% endif %}
