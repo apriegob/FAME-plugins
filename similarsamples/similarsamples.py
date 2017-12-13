@@ -58,7 +58,7 @@ class SimilarSamples(ProcessingModule):
                         ratio = aux
                         match = alg
             if ratio > 0:
-                analysis = store.analysis.find_one({'file': ObjectId(str(sample['_id']))},{'_id':1})
+                analysis = store.analysis.find_one({'file': ObjectId(sample['_id'])},{'_id':1})
                 if not len(sample['probable_names']):
                     sample['probable_names'] = ['N/A']
                 related.append({'ratio': ratio, 'sha256': sample['sha256'],'algorithm': alg, 'analysis_id':analysis['_id'],'names': sample['names'],'probable_names':sample['probable_names']})
