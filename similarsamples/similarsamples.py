@@ -50,6 +50,8 @@ class SimilarSamples(ProcessingModule):
             match = None
             for alg in ['ssdeep','impfuzzy','imphash']:
                 if alg in list(target.keys()):
+                    if not alg in sample.keys() or not alg in target.keys():
+                        continue
                     aux = compfunc[alg](sample[alg],target[alg])
                     if ratio < aux:
                         self.log('debug','Result: {}'.format(aux))
