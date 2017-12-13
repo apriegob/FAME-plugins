@@ -3,6 +3,7 @@ from fame.core.store import store
 from fame.core.module import ProcessingModule
 from fame.common.exceptions import ModuleInitializationError
 from fame.common.utils import tempdir
+from bson.objectid import ObjectId
 
 try:
     import ssdeep
@@ -55,7 +56,7 @@ class SimilarSamples(ProcessingModule):
                         ratio = aux
                         match = alg
             if ratio > 0:
-                analysis = store.analysis.find_one({'file': sample['_id']},{'_id':1})
+                analysis = store.analysis.find_one({'file': ObjectId(sample['_id'])},{'_id':1})
                 if not len(sample['probable_names']):
                     sample['probable_names'] = ['N/A']
                 related.append({'ratio': ratio, 'sha256': sample['sha256'],'algorithm': alg, 'analysis_id':analysis['_id'],'names': sample['names'],'probable_names':sample['probable_names']})
