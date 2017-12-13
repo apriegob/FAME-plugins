@@ -14,7 +14,6 @@
 				<th>Name(s)</th>
 				<th>Known names</th>
 				<th>SHA256</th>
-				<th>obj</th>
 			</tr>
 			{% for sample in results %}
 				<tr>
@@ -30,7 +29,7 @@
 							{{name}}<br>
 						{% endfor %}
 					</td>
-					<td><a href="{{ url_for('FilesView:get_sha256', sha256=sample.sha256) }}" target="_blank">{{sample.sha256}}</a></td>
+					<td><a href="{{ url_for('FilesView:get_sha256', sha256=sample.sha256) }}">{{sample.sha256}}</a></td>
 			</tr>
 			{% endfor %}
 		</table>
