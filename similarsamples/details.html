@@ -29,7 +29,7 @@
 							{{name}}<br>
 						{% endfor %}
 					</td>
-					<td><a href="{{ url_for('FilesView:get_sha256', sha256=related.related.sha256) }}" target="_blank">{{related.sha256}}</a></td>					</tr>
+					<td><a href="{{ url_for('FilesView:get_sha256', sha256=related.sha256) }}" target="_blank">{{related.sha256}}</a></td>					</tr>
 			{% endfor %}
 		</table>
 	{% endif %}
