@@ -1,9 +1,9 @@
 import re
 
 patterns = {
-    "btc": re.compile(r'^[a-zA-Z0-9]{34}$'),
-    "domain": re.compile(r'^.*[a-zA-Z0-9][-a-zA-Z0-9]+[a-zA-Z0-9](\.[a-z]{2,3}){1,3}$'),
-    "ipaddress": re.compile(r'^[1-9]+[0-9]{1,2}(\.[0-9]{1,3}){3}$')
+    "btc": re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$'),
+    "suspicious": re.compile(r'^(http|https):\/\/|[a-z0-9]{3,}([\-\.]{1}[a-z0-9]+)*\.(?!dll)[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$'),
+    "ipaddress": re.compile(r'^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(?:\/[0-9]{1,2})?')
 }
 
 

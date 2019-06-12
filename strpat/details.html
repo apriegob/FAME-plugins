@@ -2,7 +2,7 @@
     <div class="card">
         <div class="header">
             <h4 class="title">Strings</h4>
-            <p class="category">Strings and patterns</p>
+            <p class="category">Strings of interest</p>
         </div>
         <div class="content">
             <ul class="nav nav-tabs">
@@ -12,8 +12,8 @@
                 {% if results.patterns.ipaddress %}
                     <li><a data-toggle="tab" href="#ipaddresses">IP Addresses</a></li>
                 {% endif %}
-                {% if results.patterns.domain %}
-                    <li><a data-toggle="tab" href="#domains">Domains</a></li>
+                {% if results.patterns.suspicious %}
+                    <li><a data-toggle="tab" href="#suspicious">Suspicious</a></li>
                 {% endif %}
                 {% if results.patterns.btc %}
                     <li><a data-toggle="tab" href="#btcwallets">BTC Wallets</a></li>
@@ -36,15 +36,15 @@
                        </ul>
                    </div>
                {% endif %}
-               {% if results.patterns.domain %}
-                   <div id="domains" class="tab-pane fade">
-                       <br>
-                       <ul>
-                            {% for dom in results.patterns.domain %}
-                            <li><a href="https://www.robtex.com/dns-lookup/{{dom}}" target="_blank">{{dom}}</a></li>
-                            {% endfor %}
-                       </ul>
-                   </div>
+               {% if results.patterns.suspicious %}
+                   <div id="suspicious" class="tab-pane fade">
+			<br>
+                        <ul>
+                             {% for suspicious in results.patterns.suspicious %}
+                             <li><a href="https://www.google.es/search?ei=y2D6XIqwIuGFjLsPuaOvkAk&q={{suspicious}}" target="_blank">{{suspicious}}</a></li>
+                             {% endfor %}
+
+		  </div>
                {% endif %}
                {% if results.patterns.btc %}
                    <div id="btcwallets" class="tab-pane fade">
